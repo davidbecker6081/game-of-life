@@ -1,13 +1,16 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const stepBtn = document.getElementById('stepBtn');
+const automateBtn = document.getElementById('automateBtn');
+const generationTicker = document.getElementById('generation');
 
-const mapOfCells = [];
+let mapOfCells = [];
 const xAxisCells = 50;
 const yAxisCells = 50;
 const cellSize = 20;
 let generation = 0;
 let isAutomate = false;
-let fps = 5;
+let fps = 10;
 let now;
 let then = Date.now();
 let speed = 1000 / fps;
@@ -63,6 +66,14 @@ function Cell(x, y) {
   }
 }
 
+function drawMap() {
+  for (let i = 0; i < xAxisCells; i++) {
+    for (let j = 0; j < yAxisCells; j++) {
+      mapOfCells[i][j].draw();
+    }
+  }
+}
+
 function initializeMap() {
   for (let i = 0; i < xAxisCells; i++) {
     const temp = [];
@@ -71,15 +82,7 @@ function initializeMap() {
     }
     mapOfCells[i] = temp;
   }
-  console.log(mapOfCells);
-}
-
-function drawMap() {
-  for (let i = 0; i < xAxisCells; i++) {
-    for (let j = 0; j < yAxisCells; j++) {
-      mapOfCells[i][j].draw();
-    }
-  }
+  drawMap()
 }
 
 function toggleCellOnClick(e) {
@@ -96,9 +99,7 @@ function toggleCell(xPosition, yPosition) {
       if ((xPosition >= cell.x * cell.size && xPosition < cell.x * cell.size + cell.size)
       && (yPosition >= cell.y * cell.size && yPosition < cell.y * cell.size + cell.size)) {
         cell.isAlive = !cell.isAlive;
-        console.log(cell, 'before')
         cell.getNeighbors()
-        console.log(cell, 'after');
       }
     }
   }
@@ -140,7 +141,29 @@ function applyRules() {
   generation++;
 }
 
+function animate() {
+  requestAnimationFrame(animate);
+  now = Date.now()
+  delta = now - then;
+  if (delta > speed) {
+    then = now - (delta % speed);
+    if (isAutomate) {
+      applyRules();
+    }
+
+    drawMap();
+    generationTicker.textContent = generation;
+  }
+}
+
+function automate() {
+  isAutomate = !isAutomate;
+  isAutomate ? automateBtn.textContent = 'Stop' : automateBtn.textContent = 'Automate';
+}
+
 canvas.addEventListener('click', toggleCellOnClick, false);
+stepBtn.addEventListener('click', applyRules);
+automateBtn.addEventListener('click', automate);
 
 initializeMap();
-drawMap();
+animate();
