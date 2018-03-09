@@ -1,0 +1,8 @@
+p {
+  display: inline-block;
+  margin: 10px 0;
+}
+
+canvas {
+  border: 1px solid red;
+}
