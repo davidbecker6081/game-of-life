@@ -155,6 +155,7 @@ function randomizeGrid() {
     mapOfCells[i] = temp;
   }
   drawMap();
+  generation = 0
 }
 
 function animate() {
