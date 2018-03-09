@@ -18,6 +18,34 @@ function Cell(x, y) {
   this.y = y;
   this.size = cellSize;
   this.isAlive = false;
+  this.neighbors = 0;
+  this.getNeighbors = function() {
+    if (this.x > 0 && mapOfCells[this.x - 1][this.y].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < xAxisCells - 1 && mapOfCells[this.x + 1][this.y].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y < yAxisCells - 1 && mapOfCells[this.x][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y > 0 && mapOfCells[this.x][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x > 0 && this.y > 0 && mapOfCells[this.x - 1][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < xAxisCells - 1 && this.y > 0 && mapOfCells[this.x + 1][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y < yAxisCells - 1 && this.x > 0 && mapOfCells[this.x - 1][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < xAxisCells - 1 && this.y < yAxisCells - 1 && mapOfCells[this.x + 1][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+  }
+
   this.draw = () => {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
@@ -68,11 +96,48 @@ function toggleCell(xPosition, yPosition) {
       if ((xPosition >= cell.x * cell.size && xPosition < cell.x * cell.size + cell.size)
       && (yPosition >= cell.y * cell.size && yPosition < cell.y * cell.size + cell.size)) {
         cell.isAlive = !cell.isAlive;
-        console.log(cell)
+        console.log(cell, 'before')
+        cell.getNeighbors()
+        console.log(cell, 'after');
       }
     }
   }
   drawMap()
+}
+
+function applyRules() {
+  const tempMap = [];
+
+  for (let i = 0; i < xAxisCells; i++) {
+    let temp = [];
+    for (let j = 0; j < yAxisCells; j++) {
+      temp[j] = new Cell(i, j);
+    }
+    tempMap[i] = temp;
+  }
+
+  for (let i = 0; i < xAxisCells; i++) {
+    for (let j = 0; j < yAxisCells; j++) {
+      cell = mapOfCells[i][j]
+      cell.getNeighbors()
+      const { neighbors } = cell;
+      if (neighbors < 2) {
+        tempMap[i][j].isAlive = false;
+      }
+      if (cell.isAlive && (neighbors === 3 || neighbors === 2)) {
+        tempMap[i][j].isAlive = true;
+      }
+      if (neighbors > 3) {
+        tempMap[i][j].isAlive = false;
+      }
+      if (neighbors === 3) {
+        tempMap[i][j].isAlive = true;
+      }
+    }
+  }
+
+  mapOfCells = tempMap;
+  generation++;
 }
 
 canvas.addEventListener('click', toggleCellOnClick, false);
