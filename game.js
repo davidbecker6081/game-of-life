@@ -1,5 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const stepBtn = document.getElementById('stepBtn');
+const automateBtn = document.getElementById('automateBtn');
+const generationTicker = document.getElementById('generation');
 
 const mapOfCells = [];
 const xAxisCells = 50;
@@ -138,6 +141,21 @@ function applyRules() {
 
   mapOfCells = tempMap;
   generation++;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  now = Date.now()
+  delta = now - then;
+  if (delta > interval) {
+    then = now - (delta % interval);
+    if (isAutomate) {
+      applyRules();
+    }
+
+    drawMap();
+    generationTicker.textContent = generation;
+  }
 }
 
 canvas.addEventListener('click', toggleCellOnClick, false);
