@@ -53,12 +53,12 @@ function Cell(x, y) {
   this.draw = () => {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
-    ctx.strokeStyle = '#000';
+    ctx.strokeStyle = '#f5f6f7';
     ctx.stroke();
     ctx.closePath();
 
     if (this.isAlive) {
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = '#50C878';
     } else {
       ctx.fillStyle = '#f3f3f3';
     }
