@@ -24,5 +24,8 @@ function Cell(x, y) {
     ctx.strokeStyle = 'black';
     ctx.stroke();
     ctx.closePath();
+
+    this.isAlive ? ctx.fillStyle = 'black' : ctx.fillStyle = '#f3f3f3';
+    ctx.fillRect(this.x * this.size, this.y * this.size, this.size, this.size);
   }
 }
