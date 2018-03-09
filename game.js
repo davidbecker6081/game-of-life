@@ -50,5 +50,14 @@ function drawMap() {
   }
 }
 
+function toggleCellOnClick(e) {
+  const xPosition = e.clientX - canvas.offsetLeft;
+  const yPosition = e.clientY - canvas.offsetTop;
+  toggleCell(xPosition, yPosition);
+}
+
+
+canvas.addEventListener('click', toggleCellOnClick)
+
 initializeMap();
 drawMap();
