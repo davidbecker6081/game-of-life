@@ -12,3 +12,17 @@ let now;
 let then = Date.now();
 let speed = 1000 / fps;
 let delta;
+
+function Cell(x, y) {
+  this.x = x;
+  this.y = y;
+  this.size = cellSize;
+  this.isAlive = false;
+  this.draw = () => {
+    ctx.beginPath();
+    ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+    ctx.closePath();
+  }
+}
