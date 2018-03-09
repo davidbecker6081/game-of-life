@@ -66,6 +66,14 @@ function Cell(x, y) {
   }
 }
 
+function drawMap() {
+  for (let i = 0; i < xAxisCells; i++) {
+    for (let j = 0; j < yAxisCells; j++) {
+      mapOfCells[i][j].draw();
+    }
+  }
+}
+
 function initializeMap() {
   for (let i = 0; i < xAxisCells; i++) {
     const temp = [];
@@ -74,15 +82,7 @@ function initializeMap() {
     }
     mapOfCells[i] = temp;
   }
-  console.log(mapOfCells);
-}
-
-function drawMap() {
-  for (let i = 0; i < xAxisCells; i++) {
-    for (let j = 0; j < yAxisCells; j++) {
-      mapOfCells[i][j].draw();
-    }
-  }
+  drawMap()
 }
 
 function toggleCellOnClick(e) {
@@ -158,7 +158,12 @@ function animate() {
   }
 }
 
+function automate() {
+  isAutomate = !isAutomate;
+  isAutomate ? automateBtn.textContent = 'Stop' : automateBtn.textContent = 'Automate';
+}
+
 canvas.addEventListener('click', toggleCellOnClick, false);
 
+
 initializeMap();
-drawMap();
