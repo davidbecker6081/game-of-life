@@ -18,6 +18,34 @@ function Cell(x, y) {
   this.y = y;
   this.size = cellSize;
   this.isAlive = false;
+  this.neighbors = 0;
+  this.getNeighbors = function() {
+    if (this.x > 0 && mapOfCells[this.x - 1][this.y].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < xAxisCells - 1 && mapOfCells[this.x + 1][this.y].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y < yAxisCells - 1 && mapOfCells[this.x][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y > 0 && mapOfCells[this.x][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x > 0 && this.y > 0 && mapOfCells[this.x - 1][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < width - 1 && this.y > 0 && mapOfCells[this.x + 1][this.y - 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.y < yAxisCells - 1 && this.x > 0 && mapOfCells[this.x - 1][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+    if (this.x < width - 1 && this.y < yAxisCells - 1 && mapOfCells[this.x + 1][this.y + 1].isAlive) {
+      this.neighbors++;
+    }
+  }
+
   this.draw = () => {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
