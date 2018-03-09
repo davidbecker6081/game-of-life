@@ -4,13 +4,13 @@ const stepBtn = document.getElementById('stepBtn');
 const automateBtn = document.getElementById('automateBtn');
 const generationTicker = document.getElementById('generation');
 
-const mapOfCells = [];
+let mapOfCells = [];
 const xAxisCells = 50;
 const yAxisCells = 50;
 const cellSize = 20;
 let generation = 0;
 let isAutomate = false;
-let fps = 5;
+let fps = 10;
 let now;
 let then = Date.now();
 let speed = 1000 / fps;
@@ -99,9 +99,7 @@ function toggleCell(xPosition, yPosition) {
       if ((xPosition >= cell.x * cell.size && xPosition < cell.x * cell.size + cell.size)
       && (yPosition >= cell.y * cell.size && yPosition < cell.y * cell.size + cell.size)) {
         cell.isAlive = !cell.isAlive;
-        console.log(cell, 'before')
         cell.getNeighbors()
-        console.log(cell, 'after');
       }
     }
   }
@@ -147,8 +145,8 @@ function animate() {
   requestAnimationFrame(animate);
   now = Date.now()
   delta = now - then;
-  if (delta > interval) {
-    then = now - (delta % interval);
+  if (delta > speed) {
+    then = now - (delta % speed);
     if (isAutomate) {
       applyRules();
     }
@@ -164,6 +162,8 @@ function automate() {
 }
 
 canvas.addEventListener('click', toggleCellOnClick, false);
-
+stepBtn.addEventListener('click', applyRules);
+automateBtn.addEventListener('click', automate);
 
 initializeMap();
+animate();
