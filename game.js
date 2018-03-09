@@ -25,7 +25,11 @@ function Cell(x, y) {
     ctx.stroke();
     ctx.closePath();
 
-    this.isAlive ? ctx.fillStyle = '#000' : ctx.fillStyle = '#f3f3f3';
+    if (this.isAlive) {
+      ctx.fillStyle = '#000';
+    } else {
+      ctx.fillStyle = '#f3f3f3';
+    }
     ctx.fillRect(this.x * this.size, this.y * this.size, this.size, this.size);
     ctx.stroke();
   }
@@ -49,6 +53,29 @@ function drawMap() {
     }
   }
 }
+
+function toggleCellOnClick(e) {
+  const xPosition = e.offsetX - canvas.offsetLeft;
+  const yPosition = e.offsetY - canvas.offsetTop;
+  toggleCell(xPosition, yPosition);
+}
+
+function toggleCell(xPosition, yPosition) {
+  for (let i = 0; i < xAxisCells; i++) {
+    for (let j = 0; j < yAxisCells; j++) {
+      cell = mapOfCells[i][j];
+
+      if ((xPosition >= cell.x * cell.size && xPosition < cell.x * cell.size + cell.size)
+      && (yPosition >= cell.y * cell.size && yPosition < cell.y * cell.size + cell.size)) {
+        cell.isAlive = !cell.isAlive;
+        console.log(cell)
+      }
+    }
+  }
+  drawMap()
+}
+
+canvas.addEventListener('click', toggleCellOnClick, false);
 
 initializeMap();
 drawMap();
