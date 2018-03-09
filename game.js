@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const stepBtn = document.getElementById('stepBtn');
 const automateBtn = document.getElementById('automateBtn');
 const generationTicker = document.getElementById('generation');
+const randomizeBtn = document.getElementById('randomizeBtn');
 
 let mapOfCells = [];
 const xAxisCells = 50;
@@ -141,6 +142,22 @@ function applyRules() {
   generation++;
 }
 
+function randomizeGrid() {
+  for (let i = 0; i < xAxisCells; i++) {
+    const temp = [];
+    for (let j = 0; j < yAxisCells; j++) {
+      temp[j] = new Cell (i, j)
+      let randomNum = Math.floor(Math.random() * 2)
+      if (randomNum === 1) {
+        temp[j].isAlive = true;
+      }
+    }
+    mapOfCells[i] = temp;
+  }
+  drawMap();
+  generation = 0
+}
+
 function animate() {
   requestAnimationFrame(animate);
   now = Date.now()
@@ -164,6 +181,7 @@ function automate() {
 canvas.addEventListener('click', toggleCellOnClick, false);
 stepBtn.addEventListener('click', applyRules);
 automateBtn.addEventListener('click', automate);
+randomizeBtn.addEventListener('click', randomizeGrid);
 
 initializeMap();
 animate();
