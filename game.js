@@ -21,11 +21,25 @@ function Cell(x, y) {
   this.draw = () => {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = '#000';
     ctx.stroke();
     ctx.closePath();
 
-    this.isAlive ? ctx.fillStyle = 'black' : ctx.fillStyle = '#f3f3f3';
+    this.isAlive ? ctx.fillStyle = '#000' : ctx.fillStyle = '#f3f3f3';
     ctx.fillRect(this.x * this.size, this.y * this.size, this.size, this.size);
+    ctx.stroke();
   }
 }
+
+function initializeMap() {
+  for (let i = 0; i < xAxisCells; i++) {
+    const temp = [];
+    for (let j = 0; j < yAxisCells; j++) {
+      temp[j] = new Cell(i, j);
+    }
+    mapOfCells[i] = temp;
+  }
+  console.log(mapOfCells);
+}
+
+initializeMap();
