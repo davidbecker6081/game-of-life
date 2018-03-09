@@ -56,6 +56,18 @@ function toggleCellOnClick(e) {
   toggleCell(xPosition, yPosition);
 }
 
+function toggleCell(xPosition, yPosition) {
+  for (let i = 0; i < xAxisCells; i++) {
+    for (let j = 0; j < yAxisCells; j++) {
+      let cell = mapOfCells[i][j];
+
+      if ((xPosition >= cell.x * cell.size && xPosition < cell.x * cell.size + cell.size) 
+      && (yPosition >= cell.y * cell.size && yPosition < cell.y * cell.size + cell.size)) {
+        cell.isAlive = !cell.isAlive;
+      }
+    }
+  }
+}
 
 canvas.addEventListener('click', toggleCellOnClick)
 
