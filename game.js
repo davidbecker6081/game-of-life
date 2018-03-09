@@ -6,9 +6,9 @@ const generationTicker = document.getElementById('generation');
 const randomizeBtn = document.getElementById('randomizeBtn');
 
 let mapOfCells = [];
-const xAxisCells = 50;
-const yAxisCells = 50;
-const cellSize = 20;
+const xAxisCells = 200;
+const yAxisCells = 200;
+const cellSize = 5;
 let generation = 0;
 let isAutomate = false;
 let fps = 10;
@@ -147,8 +147,8 @@ function randomizeGrid() {
     const temp = [];
     for (let j = 0; j < yAxisCells; j++) {
       temp[j] = new Cell (i, j)
-      let randomNum = Math.floor(Math.random() * 2)
-      if (randomNum === 1) {
+      let randomNum = Math.round(Math.random())
+      if (randomNum === 0) {
         temp[j].isAlive = true;
       }
     }
