@@ -7,8 +7,7 @@ An implementation of Conway's Game of Life with the help of many others code as 
 
 ### Setup
 - Clone: 
-	- ```git clone 
-https://github.com/davidbecker6081/game-of-life.git```
+	- ```git clone https://github.com/davidbecker6081/game-of-life.git```
 - Open in browser
 	- ```open index.html```
 
