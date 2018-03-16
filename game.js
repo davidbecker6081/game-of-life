@@ -6,9 +6,9 @@ const generationTicker = document.getElementById('generation');
 const randomizeBtn = document.getElementById('randomizeBtn');
 
 let mapOfCells = [];
-const xAxisCells = 200;
-const yAxisCells = 200;
-const cellSize = 5;
+const xAxisCells = 50;
+const yAxisCells = 50;
+const cellSize = 20;
 let generation = 0;
 let isAutomate = false;
 let fps = 10;
@@ -53,7 +53,7 @@ function Cell(x, y) {
   this.draw = () => {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
-    ctx.strokeStyle = '#f5f6f7';
+    ctx.strokeStyle = '#c0c3c5';
     ctx.stroke();
     ctx.closePath();
 
