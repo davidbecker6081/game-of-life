@@ -5,10 +5,11 @@ const automateBtn = document.getElementById('automateBtn');
 const generationTicker = document.getElementById('generation');
 const randomizeBtn = document.getElementById('randomizeBtn');
 
+
 let mapOfCells = [];
 const xAxisCells = 50;
 const yAxisCells = 50;
-const cellSize = 20;
+const cellSize = 10;
 let generation = 0;
 let isAutomate = false;
 let fps = 10;
@@ -16,6 +17,9 @@ let now;
 let then = Date.now();
 let speed = 1000 / fps;
 let delta;
+
+let testCell = new Cell(1, 1, cellSize)
+console.log(testCell)
 
 function Cell(x, y) {
   this.x = x;

@@ -1,13 +1,12 @@
-module.exports = class Cell {
-  constructor() {
+function Cell(x,y, cellSize) {
     this.x = x;
     this.y = y;
     this.size = cellSize;
     this.isAlive = false;
     this.neighbors = 0;
-  }
+}
 
-  getNeighbors = (mapOfCells) => {
+Cell.prototype.getNeighbors = function(mapOfCells, xAxisCells, yAxisCells) {
     if (this.x > 0 && mapOfCells[this.x - 1][this.y].isAlive) {
       this.neighbors++;
     }
@@ -32,9 +31,9 @@ module.exports = class Cell {
     if (this.x < xAxisCells - 1 && this.y < yAxisCells - 1 && mapOfCells[this.x + 1][this.y + 1].isAlive) {
       this.neighbors++;
     }
-  }
+}
 
-  draw = (ctx) => {
+Cell.prototype.draw = function(ctx) {
     ctx.beginPath();
     ctx.rect(this.x * this.size, this.y * this.size, this.size, this.size);
     ctx.strokeStyle = '#c0c3c5';
@@ -50,5 +49,7 @@ module.exports = class Cell {
     ctx.stroke();
 
     return ctx
-  }
 }
+
+
+// module.exports = Cell;
