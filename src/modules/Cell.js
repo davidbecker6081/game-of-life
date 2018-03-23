@@ -52,4 +52,4 @@ Cell.prototype.draw = function(ctx) {
 }
 
 
-// module.exports = Cell;
+export { Cell };
