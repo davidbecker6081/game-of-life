@@ -1,12 +1,9 @@
-// import { Cell as cellTest } from './modules/Cell.js';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const stepBtn = document.getElementById('stepBtn');
 const automateBtn = document.getElementById('automateBtn');
 const generationTicker = document.getElementById('generation');
 const randomizeBtn = document.getElementById('randomizeBtn');
-// console.log(cellTest)
-
 
 let mapOfCells = [];
 const xAxisCells = 50;
